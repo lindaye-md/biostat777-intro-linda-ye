@@ -188,7 +188,6 @@ div.csl-indent {
   <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization">4. Data Visualization</a></li>
   <li><a href="#summary-of-analysis" id="toc-summary-of-analysis" class="nav-link" data-scroll-target="#summary-of-analysis">5. Summary of Analysis</a></li>
   <li><a href="#functions-used" id="toc-functions-used" class="nav-link" data-scroll-target="#functions-used">6. Functions Used</a></li>
-  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -224,19 +223,19 @@ div.csl-indent {
 </div>
 <section id="dataset-description-dictionary" class="level3">
 <h3 class="anchored" data-anchor-id="dataset-description-dictionary">1. Dataset Description &amp; Dictionary</h3>
-<p>The <code>ChickWeight</code> dataset is a built-in dataset in R that contains weight measurements of chicks on different diets over a period of time. The dataset includes the following variables:</p>
+<p>The <code>ChickWeight</code> dataset is a built-in dataset in R that contains weight measurements of chicks on different diets over a period of time. The data were originally collected from an experiment conducted by the Department of Agriculture in the 1930s to study the effects of different diets on the growth of chicks <span class="citation" data-cites="crowder1990analysis">(<a href="#ref-crowder1990analysis" role="doc-biblioref">Crowder and Hand 1990</a>)</span>.</p>
+<p>The dataset includes the following variables:</p>
 <ul>
 <li><code>weight</code> (numeric): The weight of the chick (in grams).</li>
 <li><code>Time</code> (numeric): The time (in days) since the chick was hatched when the measurement was made.</li>
-<li><code>Chick</code> (ordinal): A unique identifier for each chick (between 18 and 48). The ordering of the levels groups chicks on the same diet together and orders them according to their final weight (lightest to heaviest) within diet.</li>
-<li><code>Diet</code> (categorical): The diet type (1, 2, 3, or 4) assigned to the chick.</li>
-</ul>
-<p>The data were collected from an experiment conducted by the Department of Agriculture in the 1930s to study the effects of different diets on the growth of chicks <span class="citation" data-cites="crowder1990analysis">(<a href="#ref-crowder1990analysis" role="doc-biblioref">Crowder and Hand 1990</a>)</span>. The specific composition of each diet was:</p>
+<li><code>Chick</code> (nominal): A unique identifier for each chick (between 18 and 48). The ordering of the levels groups chicks on the same diet together and orders them according to their final weight (lightest to heaviest) within diet.</li>
+<li><code>Diet</code> (ordinal): The diet type (1, 2, 3, or 4) assigned to the chick. The specific diet compositions were:
 <ul>
-<li><p>Diet 1: normal corn diet (control)</p></li>
-<li><p>Diet 2: corn diet with 10% protein</p></li>
-<li><p>Diet 3: corn diet with 20% protein</p></li>
-<li><p>Diet 4: corn diet with 40% protein</p></li>
+<li>1: Control corn diet</li>
+<li>2: Diet with 10% protein replacement</li>
+<li>3: Diet with 20% protein replacement</li>
+<li>4: Diet with 40% protein replacement</li>
+</ul></li>
 </ul>
 <p>Each chick was weighed at birth, every two days thereafter until day 20, and once more on day 21 (up to 12 time points). There are a total of 578 observations in the dataset representing 50 chicks on four different diets.</p>
 <p>The dataset can be accessed directly in R using the command <code>ChickWeight</code>. More information about the dataset and a codebook can be found in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ChickWeight.html">R documentation</a>.</p>
@@ -743,8 +742,8 @@ Figure&nbsp;5: This plot summarizes the estimated rate of weight gain per day fo
 <section id="summary-of-analysis" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="summary-of-analysis">5. Summary of Analysis</h3>
 <p>In summary, this was an analysis of the <code>ChickWeight</code> dataset, which measured the weights of chicks on four different diets at 12 timepoints from birth until day 21: control corn diet (1), diet with 10% protein replacement (2), diet with 20% protein replacement (3), and diet with 40% protein replacement (4) <span class="citation" data-cites="crowder1990analysis">(<a href="#ref-crowder1990analysis" role="doc-biblioref">Crowder and Hand 1990</a>)</span>.</p>
-<p><a href="#fig-boxplots" class="quarto-xref">Figure&nbsp;3</a> demonstrates serial boxplots of the weight distribution of the chicks in each diet. At baseline (day 0), the average starting weights among all four groups are similar. Until day 14, the chicks on diet 4 appeared to have a higher absolute weight gain. After day 14, the average weight of the chicks on diet 3 surpassed that of the chicks on diet 4. This was supported by the calculations of absolute average weight gain between study start and the last measured weights, with diet 3 associated with the greatest average total weight gain (229.5 g) over the study period (<a href="#tbl-wtgain" class="quarto-xref">Table&nbsp;2</a>). Linear regression analysis (<a href="#tbl-lm" class="quarto-xref">Table&nbsp;3</a>) revealed that diet 3 (20% protein) had the highest estimated growth rate (11.4 g/day) among the diets, followed by diet 4 (40% protein), diet 2 (10% protein), and finally diet 1 (control). All experimental diets showed statistically significant higher weight gain rates compared to the control diet after Bonferroni correction (<a href="#tbl-lm" class="quarto-xref">Table&nbsp;3</a>).</p>
-<p>Notably, diet 1 had the highest dropout rate (20%) by day 21, followed by a 10% dropout rate in diet 4, while diets 2 and 3 had no dropout over the study period (<a href="#tbl-counts" class="quarto-xref">Table&nbsp;1</a>). The information available about the dataset is not detailed enough to hypothesize why this may be the case, however in <a href="#fig-individual" class="quarto-xref">Figure&nbsp;2</a>, several very low weight outliers are observed in diet 1 preceding subsequent dropout, suggesting that poor growth may have contributed to chick attrition. There is no clear explanation for the single dropout (n=1) observed in data 4.</p>
+<p><a href="#fig-boxplots" class="quarto-xref">Figure&nbsp;3</a> demonstrates serial boxplots of the weight distribution of the chicks in each diet. At baseline (day 0), the average starting weights among all four groups are similar. Until day 14, the chicks on diet 4 appeared to have a higher absolute weight gain. After day 14, the average weight of the chicks on diet 3 surpassed that of the chicks on diet 4. This was supported by the calculations of absolute average weight gain between study start and the last measured weights, with diet 3 associated with the greatest average total weight gain (229.5 g) over the study period (<a href="#tbl-wtgain" class="quarto-xref">Table&nbsp;2</a>). <strong>Linear regression analysis (<a href="#tbl-lm" class="quarto-xref">Table&nbsp;3</a>) revealed that diet 3 (20% protein) had the highest estimated growth rate (11.4 g/day) among the diets</strong>, followed by diet 4 (40% protein), diet 2 (10% protein), and finally diet 1 (control). All experimental diets showed statistically significant higher rates of weight gain compared to the control diet after Bonferroni correction (p &lt; 0.001) (<a href="#tbl-lm" class="quarto-xref">Table&nbsp;3</a>).</p>
+<p>N.B.: Diet 1 had the highest dropout rate (20%) by day 21, followed by a 10% dropout rate in diet 4, while diets 2 and 3 had no dropout over the study period (<a href="#tbl-counts" class="quarto-xref">Table&nbsp;1</a>). The information available about the dataset is not detailed enough to hypothesize why this may be the case, however on visual inspection of <a href="#fig-individual" class="quarto-xref">Figure&nbsp;2</a>, several very low weight outliers are observed in diet 1 preceding subsequent dropout prior to day 21, suggesting that poor growth may have contributed to chick attrition. There is no clear explanation for the single dropout (n=1) observed in data 4.</p>
 <p>The findings of this analysis is consistent with current guidelines recommending 23% crude protein in chick feeds for age 0-3 weeks (National Research <span class="citation" data-cites="NAP2114">Council (<a href="#ref-NAP2114" role="doc-biblioref">1994</a>)</span>):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -782,11 +781,6 @@ Important
 <p><code>count()</code>, <code>group_by()</code>, <code>mutate()</code>, <code>ungroup()</code>, <code>filter()</code>, <code>distinct()</code>, <code>summarise()</code>, <code>arrange()</code>, <code>pivot_wider()</code>, <code>select()</code>, <code>nest()</code>, <code>map()</code>, <code>unnest()</code></p>
 <p><code>ggplot2</code>:</p>
 <p><code>ggplot()</code>, <code>aes()</code>, <code>geom_col()</code>, <code>scale_x_continuous()</code>, <code>geom_line()</code>, <code>scale_y_continuous()</code>, <code>labs()</code>, <code>geom_point()</code>, <code>geom_smooth()</code>, <code>geom_boxplot()</code>, <code>facet_wrap()</code>, <code>geom_errorbar()</code></p>
-</section>
-<section id="links" class="level3">
-<h3 class="anchored" data-anchor-id="links">Links</h3>
-<p><a href="intro.html">Go back home</a></p>
-<p><a href="about.html">About me</a></p>
 
 
 
