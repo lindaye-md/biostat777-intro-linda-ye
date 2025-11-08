@@ -180,7 +180,7 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#chickweight-dataset" id="toc-chickweight-dataset" class="nav-link active" data-scroll-target="#chickweight-dataset"><code>ChickWeight</code> dataset</a>
+  <li><a href="#chickweight-dataset" id="toc-chickweight-dataset" class="nav-link active" data-scroll-target="#chickweight-dataset"><strong><code>ChickWeight</code> dataset</strong></a>
   <ul class="collapse">
   <li><a href="#dataset-description-dictionary" id="toc-dataset-description-dictionary" class="nav-link" data-scroll-target="#dataset-description-dictionary">1. Dataset Description &amp; Dictionary</a></li>
   <li><a href="#research-objective-intended-audience" id="toc-research-objective-intended-audience" class="nav-link" data-scroll-target="#research-objective-intended-audience">2. Research Objective &amp; Intended Audience</a></li>
@@ -215,7 +215,7 @@ div.csl-indent {
 
 
 <section id="chickweight-dataset" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="chickweight-dataset"><code>ChickWeight</code> dataset</h2>
+<h2 class="anchored" data-anchor-id="chickweight-dataset"><strong><code>ChickWeight</code> dataset</strong></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://www.mypetchicken.com/cdn/shop/articles/baby-chick-hatching.jpg?v=1686332104" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
@@ -223,13 +223,13 @@ div.csl-indent {
 </div>
 <section id="dataset-description-dictionary" class="level3">
 <h3 class="anchored" data-anchor-id="dataset-description-dictionary">1. Dataset Description &amp; Dictionary</h3>
-<p>The <code>ChickWeight</code> dataset is a built-in dataset in R that contains weight measurements of chicks on different diets over a period of time. The data were originally collected from an experiment conducted by the Department of Agriculture in the 1930s to study the effects of different diets on the growth of chicks <span class="citation" data-cites="crowder1990analysis">(<a href="#ref-crowder1990analysis" role="doc-biblioref">Crowder and Hand 1990</a>)</span>.</p>
+<p>The <code>ChickWeight</code> dataset is a built-in dataset in R that contains weight measurements of chicks on different diets from birth to 21 days. The data were originally collected from an experiment conducted by the Department of Agriculture in the 1930s to study the effects of different diets on the growth weight of chicks <span class="citation" data-cites="crowder1990analysis">(<a href="#ref-crowder1990analysis" role="doc-biblioref">Crowder and Hand 1990</a>)</span>.</p>
 <p>The dataset includes the following variables:</p>
 <ul>
 <li><code>weight</code> (numeric): The weight of the chick (in grams).</li>
 <li><code>Time</code> (numeric): The time (in days) since the chick was hatched when the measurement was made.</li>
-<li><code>Chick</code> (nominal): A unique identifier for each chick (between 18 and 48). The ordering of the levels groups chicks on the same diet together and orders them according to their final weight (lightest to heaviest) within diet.</li>
-<li><code>Diet</code> (ordinal): The diet type (1, 2, 3, or 4) assigned to the chick. The specific diet compositions were:
+<li><code>Chick</code> (nominal): A unique identifier for each chick (between 1 and 50).</li>
+<li><code>Diet</code> (ordinal): The diet type (1, 2, 3, or 4) assigned to each chick. The specific diet compositions are:
 <ul>
 <li>1: Control corn diet</li>
 <li>2: Diet with 10% protein replacement</li>
@@ -238,11 +238,11 @@ div.csl-indent {
 </ul></li>
 </ul>
 <p>Each chick was weighed at birth, every two days thereafter until day 20, and once more on day 21 (up to 12 time points). There are a total of 578 observations in the dataset representing 50 chicks on four different diets.</p>
-<p>The dataset can be accessed directly in R using the command <code>ChickWeight</code>. More information about the dataset and a codebook can be found in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ChickWeight.html">R documentation</a>.</p>
+<p>The dataset can be accessed directly in R using the command <code>ChickWeight</code>. More information about the dataset and an online codebook can be found in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ChickWeight.html">R documentation</a>.</p>
 </section>
 <section id="research-objective-intended-audience" class="level3">
 <h3 class="anchored" data-anchor-id="research-objective-intended-audience">2. Research Objective &amp; Intended Audience</h3>
-<p>The goal of this analysis is to explore the growth patterns of chicks on different diets over time and to determine if there are significant differences in weight gain among the diets.</p>
+<p>The goal of this analysis is to explore the growth patterns of the first weeks of life in chicks on different diets over time and to determine if there are significant differences in weight gain among the diets.</p>
 <p>The intended audience for this analysis is broad and includes students, researchers, and professionals in the fields of animal science, veterinary medicine, nutrition, and animal husbandry who may be interested in understanding the effects of diet composition on early growth in poultry.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -265,39 +265,40 @@ Note
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>chickwt <span class="ot">=</span> ChickWeight</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#retention of chicks measured per diet per day</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>chickwt_nday <span class="ot">=</span> chickwt <span class="sc">|&gt;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Time, Diet) <span class="sc">|&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Diet) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n0 =</span> n[Time <span class="sc">==</span> <span class="fu">min</span>(Time)], <span class="at">retention =</span> n <span class="sc">/</span> n0) <span class="sc">|&gt;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>chickcounts <span class="ot">=</span> <span class="fu">as_tibble</span>(chickwt) <span class="sc">|&gt;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">21</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Diet, Time, Chick) <span class="sc">|&gt;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Diet, Time, <span class="at">name =</span> <span class="st">"n_chicks"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Diet, Time)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>chickcounts <span class="ot">=</span> chickcounts <span class="sc">|&gt;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Time,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> n_chicks,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"day_"</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropout =</span> day_0 <span class="sc">-</span> day_21,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_dropout =</span> dropout <span class="sc">/</span> day_0 <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>dropout) <span class="sc">|&gt;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Diet"</span>, <span class="st">"n (Day 0)"</span>, <span class="st">"n (Day 21)"</span>, <span class="st">"% Dropout"</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>chickcounts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load necessary libraries and dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>chickwt <span class="ot">=</span> ChickWeight</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#retention of chicks measured per diet per day</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>chickwt_nday <span class="ot">=</span> chickwt <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Time, Diet) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Diet) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n0 =</span> n[Time <span class="sc">==</span> <span class="fu">min</span>(Time)], <span class="at">retention =</span> n <span class="sc">/</span> n0) <span class="sc">|&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>chickcounts <span class="ot">=</span> <span class="fu">as_tibble</span>(chickwt) <span class="sc">|&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">21</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Diet, Time, Chick) <span class="sc">|&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Diet, Time, <span class="at">name =</span> <span class="st">"n_chicks"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Diet, Time)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>chickcounts <span class="ot">=</span> chickcounts <span class="sc">|&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Time,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> n_chicks,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"day_"</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">dropout =</span> day_0 <span class="sc">-</span> day_21,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_dropout =</span> dropout <span class="sc">/</span> day_0 <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>dropout) <span class="sc">|&gt;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Diet"</span>, <span class="st">"n (Day 0)"</span>, <span class="st">"n (Day 21)"</span>, <span class="st">"% Dropout"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>chickcounts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="tbl-counts" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -354,27 +355,28 @@ Table&nbsp;1
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>chickwtgain <span class="ot">=</span> <span class="fu">as_tibble</span>(chickwt) <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Chick, Diet) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">w0 =</span> weight[<span class="fu">which.min</span>(Time)],</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">wend =</span> weight[<span class="fu">which.max</span>(Time)],</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weightgain =</span> wend <span class="sc">-</span> w0) <span class="sc">|&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avgw0 =</span> <span class="fu">mean</span>(w0), <span class="at">avgwend =</span> <span class="fu">mean</span>(wend), <span class="at">avgwtgain =</span> <span class="fu">mean</span>(weightgain), <span class="at">n_chicks =</span> <span class="fu">n</span>(), <span class="at">.by =</span> Diet) <span class="sc">|&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Diet) <span class="sc">|&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n_chicks) <span class="sc">|&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Diet"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Avg. Weight (Day 0, g)"</span>,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Avg. Weight (Last Measured, g)"</span>,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Avg. Weight Gain (g)"</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>chickwtgain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#evaluating average weight gain over study duration (day 0 to last measurement)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>chickwtgain <span class="ot">=</span> <span class="fu">as_tibble</span>(chickwt) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Chick, Diet) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">w0 =</span> weight[<span class="fu">which.min</span>(Time)],</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">wend =</span> weight[<span class="fu">which.max</span>(Time)],</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weightgain =</span> wend <span class="sc">-</span> w0) <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avgw0 =</span> <span class="fu">mean</span>(w0), <span class="at">avgwend =</span> <span class="fu">mean</span>(wend), <span class="at">avgwtgain =</span> <span class="fu">mean</span>(weightgain), <span class="at">n_chicks =</span> <span class="fu">n</span>(), <span class="at">.by =</span> Diet) <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Diet) <span class="sc">|&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n_chicks) <span class="sc">|&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Diet"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Avg. Weight (Day 0, g)"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Avg. Weight (Last Measured, g)"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Avg. Weight Gain (g)"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>chickwtgain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="tbl-wtgain" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -741,17 +743,29 @@ Figure&nbsp;5: This plot summarizes the estimated rate of weight gain per day fo
 </section>
 <section id="summary-of-analysis" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="summary-of-analysis">5. Summary of Analysis</h3>
-<p>In summary, this was an analysis of the <code>ChickWeight</code> dataset, which measured the weights of chicks on four different diets at 12 timepoints from birth until day 21: control corn diet (1), diet with 10% protein replacement (2), diet with 20% protein replacement (3), and diet with 40% protein replacement (4) <span class="citation" data-cites="crowder1990analysis">(<a href="#ref-crowder1990analysis" role="doc-biblioref">Crowder and Hand 1990</a>)</span>.</p>
-<p><a href="#fig-boxplots" class="quarto-xref">Figure&nbsp;3</a> demonstrates serial boxplots of the weight distribution of the chicks in each diet. At baseline (day 0), the average starting weights among all four groups are similar. Until day 14, the chicks on diet 4 appeared to have a higher absolute weight gain. After day 14, the average weight of the chicks on diet 3 surpassed that of the chicks on diet 4. This was supported by the calculations of absolute average weight gain between study start and the last measured weights, with diet 3 associated with the greatest average total weight gain (229.5 g) over the study period (<a href="#tbl-wtgain" class="quarto-xref">Table&nbsp;2</a>). <strong>Linear regression analysis (<a href="#tbl-lm" class="quarto-xref">Table&nbsp;3</a>) revealed that diet 3 (20% protein) had the highest estimated growth rate (11.4 g/day) among the diets</strong>, followed by diet 4 (40% protein), diet 2 (10% protein), and finally diet 1 (control). All experimental diets showed statistically significant higher rates of weight gain compared to the control diet after Bonferroni correction (p &lt; 0.001) (<a href="#tbl-lm" class="quarto-xref">Table&nbsp;3</a>).</p>
-<p>N.B.: Diet 1 had the highest dropout rate (20%) by day 21, followed by a 10% dropout rate in diet 4, while diets 2 and 3 had no dropout over the study period (<a href="#tbl-counts" class="quarto-xref">Table&nbsp;1</a>). The information available about the dataset is not detailed enough to hypothesize why this may be the case, however on visual inspection of <a href="#fig-individual" class="quarto-xref">Figure&nbsp;2</a>, several very low weight outliers are observed in diet 1 preceding subsequent dropout prior to day 21, suggesting that poor growth may have contributed to chick attrition. There is no clear explanation for the single dropout (n=1) observed in data 4.</p>
-<p>The findings of this analysis is consistent with current guidelines recommending 23% crude protein in chick feeds for age 0-3 weeks (National Research <span class="citation" data-cites="NAP2114">Council (<a href="#ref-NAP2114" role="doc-biblioref">1994</a>)</span>):</p>
+<p>In summary, this was an analysis of the <code>ChickWeight</code> dataset, which measured the weights of chicks on four different diets at 12 timepoints from birth until day 21: (1) control corn diet, (2) diet with 10% protein replacement, (3) diet with 20% protein replacement, and (4) diet with 40% protein replacement <span class="citation" data-cites="crowder1990analysis">(<a href="#ref-crowder1990analysis" role="doc-biblioref">Crowder and Hand 1990</a>)</span>.</p>
+<p><a href="#fig-boxplots" class="quarto-xref">Figure&nbsp;3</a> displays serial boxplots of the weight distribution of the chicks in each diet on each day of measurement. At birth (day 0), the average starting weights among all four groups are similar. Until day 14, the chicks on diet 4 appeared to have a higher average overall weight gain, however afterward the average weight of the chicks on diet 3 surpassed that of the chicks on diet 4. This was reflected by the calculations of total average weight gain between study start and the last measured weights, with diet 3 associated with the greatest average total weight gain (229.5 g) over the study period (<a href="#tbl-wtgain" class="quarto-xref">Table&nbsp;2</a>). <strong>Linear regression analysis (<a href="#tbl-lm" class="quarto-xref">Table&nbsp;3</a>) revealed that diet 3 (20% protein) had the greatest estimated growth rate (11.4 g/day) among the diets</strong>, followed by diet 4 (40% protein), diet 2 (10% protein), and finally diet 1 (control). All experimental diets showed statistically significant higher rates of weight gain compared to that of the control diet after Bonferroni correction (p &lt; 0.001) (<a href="#tbl-lm" class="quarto-xref">Table&nbsp;3</a>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diet 1 had the highest dropout rate (n=4, 20%) by day 21, followed by a 10% attrition rate in diet 4, while diets 2 and 3 had no dropout over the study period (<a href="#tbl-counts" class="quarto-xref">Table&nbsp;1</a>). The information available about the dataset is not detailed enough to hypothesize why this may be the case, however on visual inspection of <a href="#fig-individual" class="quarto-xref">Figure&nbsp;2</a>, several very low weight outliers are observed in diet 1 preceding subsequent dropout prior to day 21, suggesting that poor growth or failure to thrive may have contributed to chick attrition. Upon close inspection of the raw dataset regarding the single (n=1) dropout in diet 4, the chick with ID #44 appears to have had the lowest weight in its cohort, which had been plateauing up until the last measured timepoint on day 18, suggesting illness or poor weight gain as a possible cause for attrition.</p>
+</div>
+</div>
+<p>The findings of this analysis are consistent with current national guidelines recommending 23% crude protein in chick feeds for age 0-3 weeks (<span class="citation" data-cites="NAP2114">National Research Council (<a href="#ref-NAP2114" role="doc-biblioref">1994</a>)</span>):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="table1.png" class="img-fluid figure-img"></p>
 <figcaption>The National Research Council (NRC) requires 23% crude protein in broiler chicks aged 0-3 weeks. Source: NRC Nutrient Requirements of Poultry, 9th Revised Edition, 1994. Table adapted by <span class="citation" data-cites="Applegate2008">(<a href="#ref-Applegate2008" role="doc-biblioref">Applegate and Angel 2008</a>)</span></figcaption>
 </figure>
 </div>
-<p>In addition, formulations of commercial chick starter feeds contain around 18-20% crude protein (see margin).</p>
+<p>Formulations of commercial chick starter feeds contain around 18-20% crude protein, which also correspond with the findings of this experiment.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <div class="quarto-figure quarto-figure-center">
@@ -770,8 +784,8 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Since the original experiment performed in 1930 (from which the <code>ChickWeight</code> dataset is derived) and the peer-reviewed research (published between 1947-1991) incorporated into the NRC’s Nutrient Requirements of Poultry <span class="citation" data-cites="NAP2114">(<a href="#ref-NAP2114" role="doc-biblioref">1994</a>)</span>, present-day broiler chicks are “very different from birds available prior to 1991, due in part to genetic selection as well as management practice and feed-related changes” <span class="citation" data-cites="Applegate2008">(<a href="#ref-Applegate2008" role="doc-biblioref">Applegate and Angel 2008</a>)</span>.</p>
-<p>Thus, current nutritional requirements may differ from those observed in this dataset and also from those recommended by the NRC. The NRC has since convened to update their recommendations with a 10th edition expected to be published in the future.</p>
+<p>Since the original experiment performed in the 1930s (from which the <code>ChickWeight</code> dataset is derived) and the peer-reviewed research (published between 1947-1991) incorporated into the NRC’s Nutrient Requirements of Poultry <span class="citation" data-cites="NAP2114">(<a href="#ref-NAP2114" role="doc-biblioref">1994</a>)</span>, present-day broiler chicks are “very different from birds available prior to 1991, due in part to genetic selection as well as management practice and feed-related changes” <span class="citation" data-cites="Applegate2008">(<a href="#ref-Applegate2008" role="doc-biblioref">Applegate and Angel 2008</a>)</span>.</p>
+<p>Thus, the conclusions from this data must be interpreted with caution, as current nutritional requirements may differ from those observed in this dataset and also from those recommended by the NRC. The NRC has since convened to update their recommendations with a 10th edition expected to be published in the future.</p>
 </div>
 </div>
 </section>
@@ -791,11 +805,11 @@ Important
 <div id="ref-Applegate2008" class="csl-entry" role="listitem">
 Applegate, Todd J, and Roselina Angel. 2008. <span>“Protein and Amino Acid Requirements for Poultry.”</span> Fact sheet. Pullman, WA: Washington State University; Feed Management Education Project. <a href="https://wpcdn.web.wsu.edu/wp-puyallup/uploads/sites/346/2014/11/Protein-and-amino-acid-for-poultry-final.pdf">https://wpcdn.web.wsu.edu/wp-puyallup/uploads/sites/346/2014/11/Protein-and-amino-acid-for-poultry-final.pdf</a>.
 </div>
-<div id="ref-NAP2114" class="csl-entry" role="listitem">
-Council, National Research. 1994. <em>Nutrient Requirements of Poultry: Ninth Revised Edition, 1994</em>. Washington, DC: The National Academies Press. <a href="https://doi.org/10.17226/2114">https://doi.org/10.17226/2114</a>.
-</div>
 <div id="ref-crowder1990analysis" class="csl-entry" role="listitem">
 Crowder, M. J., and D. J. Hand. 1990. <em>Analysis of Repeated Measures</em>. Chapman &amp; Hall/CRC Monographs on Statistics &amp; Applied Probability. Taylor &amp; Francis. <a href="https://books.google.com/books?id=XsGX6Jgzo-IC">https://books.google.com/books?id=XsGX6Jgzo-IC</a>.
+</div>
+<div id="ref-NAP2114" class="csl-entry" role="listitem">
+National Research Council. 1994. <em>Nutrient Requirements of Poultry: Ninth Revised Edition, 1994</em>. Washington, DC: The National Academies Press. <a href="https://doi.org/10.17226/2114">https://doi.org/10.17226/2114</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

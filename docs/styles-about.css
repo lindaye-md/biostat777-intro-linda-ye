@@ -1,0 +1,79 @@
+
+@media (max-width: 767px) {
+.quarto-about-solana #title-block-header,
+.quarto-about-solana #title-block-header > *,
+.quarto-about-solana .about-links,
+.quarto-about-solana .quarto-about-links {
+width: 100% !important;
+grid-column: 1 / -1 !important;
+}
+}
+
+body.nav-fixed { padding-top: 0 !important; }
+#quarto-header + #quarto-content,
+#quarto-content,
+.quarto-container,
+.page-navbar #quarto-content {
+margin-top: 0 !important;
+padding-top: 0 !important;
+}
+
+#title-block-header.quarto-title-block.default {
+margin-top: 0 !important;
+padding-top: 0.25rem !important;
+border-top: 1px solid transparent !important;
+}
+
+#title-block-header .quarto-title {
+display: block !important;
+text-align: center !important;
+}
+
+#title-block-header h1.title {
+margin: 0.25rem auto 0 !important;
+text-align: center !important;
+}
+#title-block-header .subtitle {
+margin: 0.25rem auto 0 !important;
+text-align: center !important;
+}
+
+.quarto-about-solana {
+margin-top: 0 !important;
+padding-top: 0.25rem !important;
+}
+
+.about-links {
+display: flex !important;
+flex-wrap: wrap;
+justify-content: center !important;
+gap: 0.5rem 0.75rem;
+margin-top: 0.5rem !important;
+}
+
+@media (min-width: 992px) {
+#quarto-content .quarto-about-solana {
+margin-top: 0 !important;
+padding-top: 0 !important;
+min-height: 0 !important;
+height: auto !important;
+overflow: hidden !important; 
+border-top: 1px solid transparent !important; 
+}
+#quarto-content > :first-child {
+margin-top: 0 !important;
+padding-top: 0 !important;
+}
+}
+
+page-columns .column-margin {
+position: relative;
+z-index: 0;
+}
+
+.page-columns .column-margin img,
+.page-columns .column-margin > * {
+z-index: 0 !important;
+}
+
+.page-columns .column-margin img { pointer-events: none; }
